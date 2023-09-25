@@ -1,0 +1,19 @@
+#FROM eclipse-temurin:17-jre-focal
+FROM eclipse-temurin:17-jdk
+
+
+ADD https://downloads.apache.org/kafka/3.5.1/kafka_2.13-3.5.1.tgz kafka.tgz
+
+RUN tar -xvzf kafka.tgz
+
+RUN rm kafka.tgz
+
+RUN mv /kafka_2.13-3.5.1 /kafka
+
+ENV PATH=${PATH}:/kafka/bin
+
+WORKDIR kafka
+
+ADD runner.sh runner.sh
+
+CMD [ "sh", "runner.sh" ]
